@@ -6,8 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "predev": "node scripts/import-data.js",
-    "prebuild": "node scripts/import-data.js",
+    "predev": "node scripts/excel-to-json.js",
+    "prebuild": "node scripts/excel-to-json.js",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

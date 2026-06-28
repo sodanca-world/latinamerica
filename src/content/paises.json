@@ -1,62 +1,74 @@
 [
   {
-    "id": 121,
+    "id": "argentina",
     "Nome": "Argentina",
-    "Slug": "argentina"
+    "Slug": "argentina",
+    "Ordem": 1
   },
   {
-    "id": 126,
+    "id": "chile",
     "Nome": "Chile",
-    "Slug": "chile"
+    "Slug": "chile",
+    "Ordem": 2
   },
   {
-    "id": 124,
+    "id": "colombia",
     "Nome": "Colombia",
-    "Slug": "colombia"
+    "Slug": "colombia",
+    "Ordem": 3
   },
   {
-    "id": 127,
+    "id": "costa-rica",
     "Nome": "Costa Rica",
-    "Slug": "costa-rica"
+    "Slug": "costa-rica",
+    "Ordem": 4
   },
   {
-    "id": 133,
+    "id": "ecuador",
     "Nome": "Ecuador",
-    "Slug": "ecuador"
+    "Slug": "ecuador",
+    "Ordem": 5
   },
   {
-    "id": 122,
+    "id": "guatemala",
     "Nome": "Guatemala",
-    "Slug": "guatemala"
+    "Slug": "guatemala",
+    "Ordem": 6
   },
   {
-    "id": 130,
+    "id": "mexico",
     "Nome": "México",
-    "Slug": "mexico"
+    "Slug": "mexico",
+    "Ordem": 7
   },
   {
-    "id": 125,
+    "id": "panama",
     "Nome": "Panama",
-    "Slug": "panama"
+    "Slug": "panama",
+    "Ordem": 8
   },
   {
-    "id": 120,
+    "id": "paraguay",
     "Nome": "Paraguay",
-    "Slug": "paraguay"
+    "Slug": "paraguay",
+    "Ordem": 9
   },
   {
-    "id": 128,
+    "id": "republica-dominicana",
     "Nome": "República Dominicana",
-    "Slug": "republica-dominicana"
+    "Slug": "republica-dominicana",
+    "Ordem": 10
   },
   {
-    "id": 123,
+    "id": "uruguay",
     "Nome": "Uruguay",
-    "Slug": "uruguay"
+    "Slug": "uruguay",
+    "Ordem": 11
   },
   {
-    "id": 131,
+    "id": "venezuela",
     "Nome": "Venezuela",
-    "Slug": "venezuela"
+    "Slug": "venezuela",
+    "Ordem": 12
   }
 ]
