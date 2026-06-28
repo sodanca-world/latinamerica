@@ -56,26 +56,26 @@ const businessSchema = {
   <div class="animate-fade-in max-w-2xl">
     
     <!-- Breadcrumbs / Top Header -->
-    <div class="mb-8 text-white select-none">
-      <nav class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sodanca-nude/80 mb-4">
-        <a href="/" class="hover:text-white transition-colors">Início</a>
-        <svg class="h-3 w-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div class="mb-8 text-sodanca-dark select-none">
+      <nav class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sodanca-accent mb-4">
+        <a href="/" class="hover:text-sodanca-dark transition-colors">Início</a>
+        <svg class="h-3 w-3 text-sodanca-dark/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
         {pais && (
           <>
-            <a href={`/pais/${pais.data.Slug}/`} class="hover:text-white transition-colors">{pais.data.Nome}</a>
-            <svg class="h-3 w-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <a href={`/pais/${pais.data.Slug}/`} class="hover:text-sodanca-dark transition-colors">{pais.data.Nome}</a>
+            <svg class="h-3 w-3 text-sodanca-dark/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </>
         )}
-        <span class="text-white/60 truncate max-w-[150px]">{loja.data.Nome}</span>
+        <span class="text-sodanca-dark/70 truncate max-w-[150px]">{loja.data.Nome}</span>
       </nav>
       <h1 class="font-sans text-2xl md:text-4xl font-extrabold tracking-tight">
         Ficha da Loja
       </h1>
-      <div class="h-1 w-12 bg-sodanca-nude mt-4"></div>
+      <div class="h-1 w-12 bg-sodanca-accent mt-4"></div>
     </div>
 
     <!-- Store Detail Card -->
