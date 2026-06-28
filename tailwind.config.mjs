@@ -10,6 +10,7 @@ export default {
           dark: '#1a1a1a',
           light: '#fcfaf7',
           accent: '#c99a7c',
+          red: '#b81426', // Vermelho corporativo Só Dança
         },
         france: {
           blue: '#002654', // Azul marinho clássico elegante
