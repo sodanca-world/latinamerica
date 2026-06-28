@@ -1,0 +1,72 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonical?: string;
+  schema?: Record<string, any>;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/assets/images/FR-fundo-site.jpg',
+  canonical = Astro.url.href,
+  schema
+} = Astro.props;
+
+const siteURL = 'https://latinamerica.sodanca.world';
+
+// Schema base padrão para o site institucional do Store Locator
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteURL}/#website`,
+  "name": "Só Dança América Latina",
+  "url": siteURL,
+  "description": "Encontre seu revendedor de sapatilhas e roupas Só Dança na América Latina. Store locator oficial.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Só Dança",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteURL}/assets/images/SD-logo-Latin-America.jpg`
+    }
+  }
+};
+
+const schemas = [defaultSchema];
+if (schema) {
+  schemas.push(schema);
+}
+---
+
+<!-- SEO Tradicional -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="icon" type="image/jpeg" href="/assets/images/cropped-boneco-so-danca-237x237-1-1-32x32.jpg" />
+<title>{title} | Só Dança América Latina</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content="index, follow" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={`${title} | Só Dança América Latina`} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `${siteURL}${ogImage}`} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonical} />
+<meta property="twitter:title" content={`${title} | Só Dança América Latina`} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImage.startsWith('http') ? ogImage : `${siteURL}${ogImage}`} />
+
+<!-- AEO (AI Search Engine Optimization) -->
+<meta name="llm-description" content="Localizador de lojas oficial da Só Dança na América Latina. Encontre endereços, telefones, e-mails, rotas e redes sociais de lojas parceiras e revendedores autorizados que vendem produtos Só Dança em países da América Latina." />
+
+<!-- Injeção de Schemas JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(schemas)} is:inline />

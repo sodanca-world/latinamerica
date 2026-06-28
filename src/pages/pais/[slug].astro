@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import StoreCard from '../../components/StoreCard.astro';
+
+export async function getStaticPaths() {
+  const paises = await getCollection('paises');
+  return paises.map((pais) => ({
+    params: { slug: pais.data.Slug },
+    props: { pais },
+  }));
+}
+
+const { pais } = Astro.props;
+
+// Buscar lojas do país
+const lojas = await getCollection('lojas');
+const lojasNoPais = lojas.filter((loja) => 
+  loja.data.Pais.includes(pais.data.Slug)
+);
+
+// Pegar redes sociais da primeira loja para alterar dinamicamente o sidebar de redes sociais
+const primeiraLoja = lojasNoPais[0]?.data;
+const customFacebook = primeiraLoja?.Facebook || undefined;
+const customInstagram = primeiraLoja?.Instagram || undefined;
+
+const pageUrl = `https://latinamerica.sodanca.world/pais/${pais.data.Slug}/`;
+const locatorSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": `Lojas e revendedores Só Dança em ${pais.data.Nome}`,
+  "url": pageUrl,
+  "numberOfItems": lojasNoPais.length,
+  "itemListElement": lojasNoPais.map((loja, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "item": {
+      "@type": "LocalBusiness",
+      "name": loja.data.Nome,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": loja.data.Endereco || "",
+        "addressLocality": loja.data.Endereco ? pais.data.Nome : undefined,
+        "addressCountry": pais.data.Nome
+      },
+      "telephone": loja.data.Telefone || undefined,
+      "url": `https://latinamerica.sodanca.world/cliente/${loja.data.Slug}/`
+    }
+  }))
+};
+---
+
+<Layout 
+  title={`Lojas de Dança em ${pais.data.Nome} - Só Dança`} 
+  description={`Encontre a lista de revendedores e lojas parceiras Só Dança em ${pais.data.Nome}. Endereços, rotas, contatos e redes sociais.`}
+  schema={locatorSchema}
+  facebook={customFacebook}
+  instagram={customInstagram}
+>
+  <div class="animate-fade-in max-w-4xl">
+    
+    <!-- Title Header -->
+    <div class="mb-10 text-white select-none">
+      <span class="text-xs uppercase tracking-[0.2em] font-bold text-sodanca-nude/80 block mb-1">
+        País
+      </span>
+      <h1 class="font-sans text-3xl md:text-5xl font-extrabold tracking-tight">
+        {pais.data.Nome}
+      </h1>
+      <div class="h-1 w-12 bg-sodanca-nude mt-4"></div>
+    </div>
+
+    <!-- Stores List -->
+    {lojasNoPais.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {lojasNoPais.map((loja) => (
+          <StoreCard loja={loja.data} />
+        ))}
+      </div>
+    ) : (
+      <div class="py-12 px-6 text-center flex flex-col items-center justify-center border border-white/10 rounded-2xl bg-white/10 backdrop-blur-md text-white max-w-md">
+        <svg class="h-10 w-10 text-sodanca-nude mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <h3 class="text-base font-bold mb-1">Nenhum revendedor registrado</h3>
+        <p class="text-xs text-white/60 leading-relaxed">
+          Atualmente não temos nenhum revendedor autorizado cadastrado em {pais.data.Nome}.
+        </p>
+      </div>
+    )}
+
+  </div>
+</Layout>

@@ -1,0 +1,270 @@
+---
+interface Props {
+  loja: {
+    Nome: string;
+    Slug: string;
+    Endereco?: string;
+    LinkMaps?: string;
+    Telefone?: string;
+    Email?: string;
+    Instagram?: string;
+    Facebook?: string;
+    Website?: string;
+    Logo?: Array<{ url: string }>;
+  };
+  isDetail?: boolean;
+}
+
+const { loja, isDetail = false } = Astro.props;
+
+const logoUrl = (loja.Logo && loja.Logo.length > 0) 
+  ? loja.Logo[0].url 
+  : '/assets/images/cropped-Logo-2.png'; // Fallback elegante do logo Só Dança
+
+// Iniciais para o avatar caso não tenha logotipo real
+const initials = loja.Nome.split(' ')
+  .map(n => n[0])
+  .slice(0, 2)
+  .join('')
+  .toUpperCase();
+---
+
+{isDetail ? (
+  /* ================= ESTADO FIXO ABERTO (Para página de detalhes) ================= */
+  <div class="w-full bg-[#2d3238]/90 backdrop-blur-md border border-white/10 rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col justify-between">
+    <div>
+      <div class="flex items-start justify-between gap-4 mb-6">
+        <div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white p-1 flex items-center justify-center">
+          {loja.Logo && loja.Logo.length > 0 ? (
+            <img 
+              src={logoUrl} 
+              alt={loja.Nome} 
+              class="h-full w-full object-contain"
+              loading="lazy"
+            />
+          ) : (
+            <span class="font-sans text-lg font-bold text-sodanca-dark">{initials}</span>
+          )}
+        </div>
+      </div>
+
+      <h3 class="font-sans text-xl font-bold mb-4">
+        {loja.Nome}
+      </h3>
+
+      <div class="space-y-3.5 text-sm text-white/80 mb-8">
+        {loja.Endereco && (
+          <div class="flex items-start gap-3">
+            <svg class="h-5 w-5 text-sodanca-nude shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            {loja.LinkMaps ? (
+              <a 
+                href={loja.LinkMaps} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="hover:text-sodanca-nude hover:underline transition-colors leading-relaxed"
+              >
+                {loja.Endereco}
+              </a>
+            ) : (
+              <span class="leading-relaxed">{loja.Endereco}</span>
+            )}
+          </div>
+        )}
+
+        {loja.Telefone && (
+          <div class="flex items-center gap-3">
+            <svg class="h-5 w-5 text-sodanca-nude shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <a href={`tel:${loja.Telefone.replace(/\s+/g, '')}`} class="hover:text-sodanca-nude transition-colors font-medium">
+              {loja.Telefone}
+            </a>
+          </div>
+        )}
+
+        {loja.Email && (
+          <div class="flex items-center gap-3">
+            <svg class="h-5 w-5 text-sodanca-nude shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <a href={`mailto:${loja.Email}`} class="hover:text-sodanca-nude transition-colors break-all">
+              {loja.Email}
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <div class="border-t border-white/10 pt-5 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        {loja.Instagram && (
+          <a 
+            href={loja.Instagram} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="rounded-full bg-white/5 p-2 text-white/70 hover:bg-france-red hover:text-white transition-all"
+            aria-label="Instagram"
+          >
+            <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+            </svg>
+          </a>
+        )}
+        {loja.Facebook && (
+          <a 
+            href={loja.Facebook} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="rounded-full bg-white/5 p-2 text-white/70 hover:bg-france-blue hover:text-white transition-all"
+            aria-label="Facebook"
+          >
+            <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+              <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+            </svg>
+          </a>
+        )}
+      </div>
+
+      {loja.Website && (
+        <a 
+          href={loja.Website} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="rounded border border-white text-white hover:bg-white hover:text-sodanca-dark px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-colors duration-200"
+        >
+          Website
+        </a>
+      )}
+    </div>
+  </div>
+) : (
+  /* ================= ESTADO FLIP CARD 3D (Para listagem por cidade) ================= */
+  <div class="w-full h-[400px] perspective group select-none">
+    <div class="relative w-full h-full duration-700 transform-style-3d group-hover:rotate-y-180 cursor-pointer">
+      
+      <!-- FRENTE: Nome + Imagem de Fundo/Logo + Ícone de Rotação -->
+      <div class="absolute inset-0 backface-hidden bg-[#2d3238]/90 backdrop-blur-md border border-white/10 rounded-2xl p-6 flex flex-col justify-between items-center text-center shadow-lg">
+        <!-- Store Name -->
+        <h3 class="font-sans text-lg font-bold text-white tracking-wide shrink-0">
+          {loja.Nome}
+        </h3>
+
+        <!-- Logo / Store Image Container -->
+        <div class="w-full h-48 overflow-hidden rounded-xl border border-white/10 bg-white flex items-center justify-center p-1.5 my-2">
+          <img 
+            src={logoUrl} 
+            alt={loja.Nome} 
+            class="h-full w-full object-contain"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Flip Icon -->
+        <div class="shrink-0 pt-2">
+          <svg class="h-6 w-6 text-white/50 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 1l4 4-4 4"/>
+            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+            <path d="M7 23l-4-4 4-4"/>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- VERSO: Detalhes de Contato completos -->
+      <div class="absolute inset-0 backface-hidden rotate-y-180 bg-[#2d3238]/95 border border-white/10 rounded-2xl p-6 flex flex-col justify-between shadow-lg text-white">
+        <div>
+          <!-- Title on back -->
+          <h3 class="font-sans text-lg font-bold mb-6 text-center text-sodanca-nude border-b border-white/10 pb-2">
+            {loja.Nome}
+          </h3>
+
+          <!-- Contacts -->
+          <div class="space-y-4 text-xs text-white/80">
+            {loja.Endereco && (
+              <div class="flex items-start gap-2.5">
+                <svg class="h-4 w-4 text-sodanca-nude shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {loja.LinkMaps ? (
+                  <a 
+                    href={loja.LinkMaps} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="hover:text-sodanca-nude hover:underline transition-colors leading-relaxed"
+                  >
+                    {loja.Endereco}
+                  </a>
+                ) : (
+                  <span class="leading-relaxed">{loja.Endereco}</span>
+                )}
+              </div>
+            )}
+
+            {loja.Telefone && (
+              <div class="flex items-center gap-2.5">
+                <svg class="h-4 w-4 text-sodanca-nude shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <a href={`tel:${loja.Telefone.replace(/\s+/g, '')}`} class="hover:text-sodanca-nude transition-colors font-medium">
+                  {loja.Telefone}
+                </a>
+              </div>
+            )}
+
+            {loja.Email && (
+              <div class="flex items-center gap-2.5">
+                <svg class="h-4 w-4 text-sodanca-nude shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <a href={`mailto:${loja.Email}`} class="hover:text-sodanca-nude transition-colors break-all">
+                  {loja.Email}
+                </a>
+              </div>
+            )}
+
+            {/* Redes Sociais da Loja */}
+            {(loja.Instagram || loja.Facebook) && (
+              <div class="flex items-center gap-3 pt-1">
+                <span class="text-[10px] uppercase tracking-wider text-white/40">Redes sociais:</span>
+                {loja.Instagram && (
+                  <a href={loja.Instagram} target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-sodanca-nude transition-colors">
+                    Instagram
+                  </a>
+                )}
+                {loja.Instagram && loja.Facebook && <span class="text-white/20">|</span>}
+                {loja.Facebook && (
+                  <a href={loja.Facebook} target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-sodanca-nude transition-colors">
+                    Facebook
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Website Button */}
+        <div class="pt-4 border-t border-white/10 shrink-0">
+          {loja.Website ? (
+            <a 
+              href={loja.Website} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="block w-full text-center py-2 rounded border border-white text-white hover:bg-white hover:text-sodanca-dark text-xs font-bold uppercase tracking-wider transition-colors duration-200"
+            >
+              Website
+            </a>
+          ) : (
+            <span class="block w-full text-center py-2 text-white/30 text-xs font-bold uppercase tracking-wider">
+              Sem website
+            </span>
+          )}
+        </div>
+      </div>
+
+    </div>
+  </div>
+)}

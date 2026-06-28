@@ -1,0 +1,85 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import StoreCard from '../../components/StoreCard.astro';
+
+export async function getStaticPaths() {
+  const lojas = await getCollection('lojas');
+  return lojas.map((loja) => ({
+    params: { slug: loja.data.Slug },
+    props: { loja },
+  }));
+}
+
+const { loja } = Astro.props;
+
+// Buscar os dados do país para fins de breadcrumbs ou referencias
+const paises = await getCollection('paises');
+const paisSlug = loja.data.Pais[0] || '';
+const pais = paises.find(p => p.data.Slug === paisSlug);
+
+const logoUrl = (loja.data.Logo && loja.data.Logo.length > 0)
+  ? loja.data.Logo[0].url
+  : '/assets/images/cropped-Logo-2.png';
+
+// Schema LocalBusiness dinâmico para a loja
+const pageUrl = `https://latinamerica.sodanca.world/cliente/${loja.data.Slug}/`;
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${pageUrl}#store`,
+  "name": loja.data.Nome,
+  "image": logoUrl.startsWith('http') ? logoUrl : `https://latinamerica.sodanca.world${logoUrl}`,
+  "url": loja.data.Website || pageUrl,
+  "telephone": loja.data.Telefone || undefined,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": loja.data.Endereco || "",
+    "addressLocality": pais ? pais.data.Nome : "",
+    "addressCountry": pais ? pais.data.Nome : "América Latina"
+  },
+  "sameAs": [
+    loja.data.Instagram || "",
+    loja.data.Facebook || ""
+  ].filter(Boolean)
+};
+---
+
+<Layout
+  title={`${loja.data.Nome} - Revendedor Só Dança`}
+  description={`Descubra a ficha detalhada da loja ${loja.data.Nome}${pais ? ` em ${pais.data.Nome}` : ''}. Contatos, endereço, rotas e redes sociais.`}
+  ogImage={logoUrl}
+  schema={businessSchema}
+  facebook={loja.data.Facebook || undefined}
+  instagram={loja.data.Instagram || undefined}
+>
+  <div class="animate-fade-in max-w-2xl">
+    
+    <!-- Breadcrumbs / Top Header -->
+    <div class="mb-8 text-white select-none">
+      <nav class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sodanca-nude/80 mb-4">
+        <a href="/" class="hover:text-white transition-colors">Início</a>
+        <svg class="h-3 w-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        {pais && (
+          <>
+            <a href={`/pais/${pais.data.Slug}/`} class="hover:text-white transition-colors">{pais.data.Nome}</a>
+            <svg class="h-3 w-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </>
+        )}
+        <span class="text-white/60 truncate max-w-[150px]">{loja.data.Nome}</span>
+      </nav>
+      <h1 class="font-sans text-2xl md:text-4xl font-extrabold tracking-tight">
+        Ficha da Loja
+      </h1>
+      <div class="h-1 w-12 bg-sodanca-nude mt-4"></div>
+    </div>
+
+    <!-- Store Detail Card -->
+    <StoreCard loja={loja.data} isDetail={true} />
+
+  </div>
+</Layout>

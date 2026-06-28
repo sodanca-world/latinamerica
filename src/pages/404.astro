@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Página Não Encontrada (404) - Só Dança" 
+  description="Desculpe, a página que você procura não existe ou foi movida. Encontre seus revendedores Só Dança na América Latina."
+>
+  <section class="relative min-h-[60vh] flex items-center justify-center bg-sodanca-dark text-white py-20 px-6 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="/assets/images/FR-fundo-site.jpg" 
+        alt="Só Dança América Latina Background" 
+        class="h-full w-full object-cover opacity-20"
+      />
+      <div class="absolute inset-0 bg-sodanca-dark/80"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center max-w-md mx-auto flex flex-col items-center">
+      <span class="text-xs uppercase tracking-[0.2em] font-bold text-sodanca-nude mb-4">Erro 404</span>
+      <h1 class="font-sans text-5xl md:text-7xl font-extrabold text-white mb-6">404</h1>
+      <h2 class="text-xl md:text-2xl font-bold text-gray-200 mb-4">Página não encontrada</h2>
+      <p class="text-sm text-gray-400 leading-relaxed mb-10">
+        Desculpe, a página que você está procurando não existe ou foi movida. Você pode voltar para a página inicial para continuar sua busca.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a 
+          href="/" 
+          class="rounded-full bg-france-blue hover:bg-france-blue/90 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white btn-hover-effect"
+        >
+          Voltar para o início
+        </a>
+        <a 
+          href="https://sodanca.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="rounded-full border border-white/20 hover:border-white/40 hover:bg-white/5 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all"
+        >
+          Só Dança World
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

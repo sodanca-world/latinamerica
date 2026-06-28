@@ -1,0 +1,270 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  isHome?: boolean;
+}
+
+const { isHome = false } = Astro.props;
+
+const paises = await getCollection('paises');
+
+// Ordenar países em ordem alfabética
+const paisesOrdenados = paises.sort((a, b) => a.data.Nome.localeCompare(b.data.Nome));
+---
+
+<!-- ================= DESKTOP SIDEBAR ================= -->
+<div class="hidden lg:flex lg:flex-col lg:justify-between lg:sticky lg:top-0 lg:h-screen lg:py-16 lg:px-8 w-full text-white bg-[#1a1f26]/65 backdrop-blur-md border-r border-white/5 shadow-2xl">
+  
+  <!-- Logo Section -->
+  <div class="flex flex-col gap-2 shrink-0">
+    <a href="/" class="transition-opacity hover:opacity-90 block">
+      <img 
+        src="/assets/images/SD-logo-Latin-America.jpg" 
+        alt="Só Dança América Latina Logo" 
+        class="h-20 w-auto object-contain"
+      />
+    </a>
+    <div class="border-t border-white/20 mt-6 pt-4">
+      <span class="text-xs uppercase tracking-[0.25em] text-sodanca-nude font-bold block mb-1">
+        Lojas
+      </span>
+      <span class="text-xs uppercase tracking-[0.15em] text-white/50 font-medium block">
+        América Latina
+      </span>
+    </div>
+  </div>
+
+  <!-- Countries Scrollable List -->
+  <nav class="my-10 flex-grow overflow-y-auto pr-4 scroll-container relative select-none">
+    <ul class="space-y-1.5 font-sans text-sm font-semibold tracking-wide text-white/70">
+      {paisesOrdenados.map((pais) => (
+        <li>
+          <a 
+            href={`/pais/${pais.data.Slug}/`} 
+            class="block py-1 hover:text-white transition-colors duration-200"
+          >
+            {pais.data.Nome}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <!-- Desktop Sidebar Footer -->
+  <div class="shrink-0 text-[10px] text-white/30 tracking-widest uppercase">
+    <p>&copy; {new Date().getFullYear()} Só Dança</p>
+  </div>
+
+</div>
+
+
+<!-- ================= MOBILE LAYOUTS CONDICIONAIS ================= -->
+{isHome ? (
+  /* ================= MOBILE HOME: EXIBE A LISTA COMPLETA DE PAÍSES FLUTUANDO CENTRALIZADA ================= */
+  <div class="lg:hidden w-full min-h-screen flex flex-col items-center justify-start pt-6 pb-12 px-4 select-none">
+    <div class="w-full max-w-[340px] bg-[#1a1f26]/60 backdrop-blur-md border border-white/10 rounded-2xl p-8 flex flex-col items-center shadow-2xl text-white">
+      
+      <!-- Logo Section -->
+      <div class="flex flex-col gap-2 items-center mb-6 shrink-0 w-full">
+        <img 
+          src="/assets/images/SD-logo-Latin-America.jpg" 
+          alt="Só Dança América Latina Logo" 
+          class="h-20 w-auto object-contain"
+        />
+        <div class="border-t border-white/20 mt-6 pt-4 text-center w-full">
+          <span class="text-xs uppercase tracking-[0.25em] text-sodanca-nude font-bold block mb-1">
+            Lojas
+          </span>
+          <span class="text-xs uppercase tracking-[0.15em] text-white/50 font-medium block">
+            América Latina
+          </span>
+        </div>
+      </div>
+
+      <!-- Countries List -->
+      <nav class="w-full text-center overflow-y-auto max-h-[42vh] scroll-container pr-1 my-4">
+        <ul class="space-y-2.5 font-sans text-sm font-semibold tracking-wide text-white/70">
+          {paisesOrdenados.map((pais) => (
+            <li>
+              <a 
+                href={`/pais/${pais.data.Slug}/`} 
+                class="block py-1 hover:text-white transition-colors duration-200"
+              >
+                {pais.data.Nome}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Footer -->
+      <div class="text-center mt-6 shrink-0 text-[10px] text-white/30 tracking-widest uppercase">
+        <p>&copy; {new Date().getFullYear()} Só Dança</p>
+      </div>
+
+      <!-- Social Links (Redes Sociais em baixo) -->
+      <div class="flex items-center gap-3.5 mt-5 pt-4 border-t border-white/10 w-full justify-center shrink-0">
+        <!-- Instagram -->
+        <a 
+          href="https://www.instagram.com/sodanca.latinamerica" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="rounded-full bg-white/5 border border-white/10 p-2.5 text-white/60 hover:bg-white/15 hover:text-white transition-all duration-300 shadow-md"
+          aria-label="Instagram"
+        >
+          <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+          </svg>
+        </a>
+
+        <!-- Facebook -->
+        <a 
+          href="https://www.facebook.com/sodanca.americalatina" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="rounded-full bg-white/5 border border-white/10 p-2.5 text-white/60 hover:bg-white/15 hover:text-white transition-all duration-300 shadow-md"
+          aria-label="Facebook"
+        >
+          <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+          </svg>
+        </a>
+
+        <!-- YouTube -->
+        <a 
+          href="https://www.youtube.com/@sodancalatinamerica" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="rounded-full bg-white/5 border border-white/10 p-2.5 text-white/60 hover:bg-white/15 hover:text-white transition-all duration-300 shadow-md"
+          aria-label="YouTube"
+        >
+          <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.507 9.388.507 9.388.507s7.518 0 9.388-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg>
+        </a>
+
+        <!-- Divider -->
+        <span class="text-white/20 text-xs font-semibold px-0.5">|</span>
+
+        <!-- Site Link -->
+        <a 
+          href="https://latinamerica.sodanca.world" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="text-[10px] font-bold uppercase tracking-wider text-white/50 hover:text-white transition-all duration-300"
+        >
+          sodanca.world
+        </a>
+      </div>
+
+    </div>
+  </div>
+) : (
+  /* ================= FOTO 1: OUTRAS PAGINAS MOBILE: CABEÇALHO COM BOTÃO MENU PAISES + MODAL ================= */
+  <div class="lg:hidden w-full bg-sodanca-dark/40 backdrop-blur-sm border-b border-white/10 px-6 py-6 text-white shrink-0">
+    <div class="flex flex-col items-center gap-4">
+      <!-- Logo -->
+      <a href="/" class="block">
+        <img 
+          src="/assets/images/SD-logo-Latin-America.jpg" 
+          alt="Só Dança América Latina Logo" 
+          class="h-14 w-auto object-contain"
+        />
+      </a>
+      
+      <!-- Menu Toggle Button -->
+      <button 
+        id="mobile-menu-open"
+        type="button"
+        class="w-full max-w-[200px] border border-white/20 rounded-lg py-2.5 text-xs font-bold tracking-widest uppercase text-white/90 hover:bg-white/10 active:bg-white/20 transition-all focus:outline-none"
+      >
+        Menu Países
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Fullscreen Modal Overlay -->
+  <div 
+    id="mobile-paises-modal"
+    class="fixed inset-0 z-50 bg-sodanca-dark/95 backdrop-blur-md hidden flex-col justify-between p-8 text-white select-none overflow-y-auto"
+  >
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between shrink-0 mb-8 border-b border-white/10 pb-4">
+      <img 
+        src="/assets/images/SD-logo-Latin-America.jpg" 
+        alt="Só Dança América Latina Logo" 
+        class="h-10 w-auto object-contain"
+      />
+      <button 
+        id="mobile-menu-close"
+        type="button"
+        class="border border-white/20 rounded-lg px-4 py-2 text-xs font-bold tracking-widest uppercase hover:bg-white/15 transition-all focus:outline-none"
+      >
+        Fechar
+      </button>
+    </div>
+
+    <!-- Modal Countries List -->
+    <nav class="flex-grow overflow-y-auto py-2">
+      <ul class="grid grid-cols-2 gap-y-4 gap-x-6 text-center font-sans text-sm font-semibold tracking-wide text-white/80">
+        {paisesOrdenados.map((pais) => (
+          <li>
+            <a 
+              href={`/pais/${pais.data.Slug}/`} 
+              class="block py-2 rounded-lg bg-white/5 border border-white/5 active:bg-white/15 transition-all"
+            >
+              {pais.data.Nome}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Modal Footer -->
+    <div class="text-center shrink-0 mt-8 text-[9px] text-white/30 tracking-widest uppercase">
+      <p>&copy; {new Date().getFullYear()} Só Dança América Latina</p>
+    </div>
+  </div>
+)}
+
+
+<!-- Custom scrollbar styles helper -->
+<style>
+  /* Hide default scrollbar on desktop cities navigation but keep scroll active */
+  .scroll-container::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+  }
+  .scroll-container:hover::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+  }
+</style>
+
+<script>
+  const openBtn = document.getElementById('mobile-menu-open');
+  const closeBtn = document.getElementById('mobile-menu-close');
+  const modal = document.getElementById('mobile-paises-modal');
+
+  if (openBtn && closeBtn && modal) {
+    // Open Modal
+    openBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden'; // block page scrolling behind modal
+    });
+
+    // Close Modal
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = ''; // restore scrolling
+    });
+  }
+</script>

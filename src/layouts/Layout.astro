@@ -1,0 +1,57 @@
+---
+import Header from '../components/Header.astro';
+import SocialSidebar from '../components/SocialSidebar.astro';
+import Seo from '../components/Seo.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  schema?: Record<string, any>;
+  facebook?: string;
+  instagram?: string;
+  isHome?: boolean;
+}
+
+const { title, description, ogImage, schema, facebook, instagram, isHome = false } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <Seo title={title} description={description} ogImage={ogImage} schema={schema} />
+  </head>
+  <body class="min-h-screen relative font-sans overflow-x-hidden selection:bg-sodanca-pink selection:text-sodanca-dark">
+    
+    <!-- Background Image -->
+    <div class="fixed inset-0 z-0 select-none pointer-events-none">
+      <img 
+        src="/assets/images/FR-fundo-site.jpg" 
+        alt="Só Dança América Latina Background" 
+        class="h-full w-full object-cover opacity-80 md:opacity-90"
+      />
+      <!-- Gradiente sutil para escurecer e melhorar o contraste em telas menores -->
+      <div class="absolute inset-0 bg-gradient-to-r from-sodanca-dark/45 via-transparent to-sodanca-dark/15"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 mx-auto max-w-[1600px] flex flex-col lg:flex-row min-h-screen">
+      
+      <!-- Coluna Esquerda: Cabeçalho & Menu Lateral Fixo -->
+      <div class="w-full lg:w-[320px] shrink-0">
+        <Header isHome={isHome} />
+      </div>
+
+      <!-- Coluna Direita: Conteúdo Principal Rolável -->
+      <div class="flex-grow w-full lg:pl-12 xl:pl-16 py-6 md:py-12 px-6 md:px-10 lg:pr-12">
+        <slot />
+      </div>
+
+    </div>
+
+    <!-- Redes Sociais Flutuantes -->
+    <SocialSidebar facebook={facebook} instagram={instagram} />
+
+  </body>
+</html>

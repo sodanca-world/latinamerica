@@ -1,0 +1,176 @@
+[
+  {
+    "id": "albi",
+    "Nome": "Albi",
+    "Slug": "albi",
+    "Ordem": 1
+  },
+  {
+    "id": "angers",
+    "Nome": "Angers",
+    "Slug": "angers",
+    "Ordem": 2
+  },
+  {
+    "id": "arnouville-les-govesse",
+    "Nome": "Arnouville les Gonesse",
+    "Slug": "arnouville-les-govesse",
+    "Ordem": 3
+  },
+  {
+    "id": "avignon",
+    "Nome": "Avignon",
+    "Slug": "avignon",
+    "Ordem": 4
+  },
+  {
+    "id": "bayonne",
+    "Nome": "Bayonne",
+    "Slug": "bayonne",
+    "Ordem": 5
+  },
+  {
+    "id": "bordeaux",
+    "Nome": "Bordeaux",
+    "Slug": "bordeaux",
+    "Ordem": 6
+  },
+  {
+    "id": "chalon-sur-saone",
+    "Nome": "Chalon sur Saone",
+    "Slug": "chalon-sur-saone",
+    "Ordem": 7
+  },
+  {
+    "id": "dammarie-les-lys",
+    "Nome": "Dammarie les Lys",
+    "Slug": "dammarie-les-lys",
+    "Ordem": 8
+  },
+  {
+    "id": "dijon",
+    "Nome": "Dijon",
+    "Slug": "dijon",
+    "Ordem": 9
+  },
+  {
+    "id": "imp-charles-fourrier-baillargues",
+    "Nome": "Baillargues",
+    "Slug": "imp-charles-fourrier-baillargues",
+    "Ordem": 10
+  },
+  {
+    "id": "jousseray",
+    "Nome": "Jousseray",
+    "Slug": "jousseray",
+    "Ordem": 11
+  },
+  {
+    "id": "le-plessis-pate",
+    "Nome": "Le Plessis Pate",
+    "Slug": "le-plessis-pate",
+    "Ordem": 12
+  },
+  {
+    "id": "les-ulis",
+    "Nome": "Les Ulis",
+    "Slug": "les-ulis",
+    "Ordem": 13
+  },
+  {
+    "id": "libourne",
+    "Nome": "Libourne",
+    "Slug": "libourne",
+    "Ordem": 14
+  },
+  {
+    "id": "lyon",
+    "Nome": "Lyon",
+    "Slug": "lyon",
+    "Ordem": 15
+  },
+  {
+    "id": "marseille",
+    "Nome": "Marseille",
+    "Slug": "marseille",
+    "Ordem": 16
+  },
+  {
+    "id": "mouans-sartoux",
+    "Nome": "Mouans Sartoux",
+    "Slug": "mouans-sartoux",
+    "Ordem": 17
+  },
+  {
+    "id": "nancy",
+    "Nome": "Nancy",
+    "Slug": "nancy",
+    "Ordem": 18
+  },
+  {
+    "id": "nice",
+    "Nome": "Nice",
+    "Slug": "nice",
+    "Ordem": 19
+  },
+  {
+    "id": "orvault",
+    "Nome": "Orvault",
+    "Slug": "orvault",
+    "Ordem": 20
+  },
+  {
+    "id": "paris",
+    "Nome": "Paris",
+    "Slug": "paris",
+    "Ordem": 21
+  },
+  {
+    "id": "port-frejus",
+    "Nome": "Port Frejus",
+    "Slug": "port-frejus",
+    "Ordem": 22
+  },
+  {
+    "id": "rosheim",
+    "Nome": "Rosheim",
+    "Slug": "rosheim",
+    "Ordem": 23
+  },
+  {
+    "id": "rueil-malmaison",
+    "Nome": "Rueil Malmaison",
+    "Slug": "rueil-malmaison",
+    "Ordem": 24
+  },
+  {
+    "id": "sainte-genevieve-des-bois",
+    "Nome": "Sainte Genevieve des Bois",
+    "Slug": "sainte-genevieve-des-bois",
+    "Ordem": 25
+  },
+  {
+    "id": "strasbourg",
+    "Nome": "Strasbourg",
+    "Slug": "strasbourg",
+    "Ordem": 26
+  },
+  {
+    "id": "tournefeuille",
+    "Nome": "Tournefeuille",
+    "Slug": "tournefeuille",
+    "Ordem": 27
+  },
+  {
+    "id": "tourrettes-sur-loup",
+    "Nome": "Tourrettes sur Loup",
+    "Slug": "tourrettes-sur-loup",
+    "Ordem": 28
+  },
+  {
+    "id": "vigneux-de-bretagne",
+    "Nome": "Vigneux de Bretagne",
+    "Slug": "vigneux-de-bretagne",
+    "Ordem": 29
+  }
+]
