@@ -40,6 +40,7 @@ try {
 
     return {
       Nome: l.Nome,
+      Cidade: l.Cidade || '',
       Slug: l.Slug,
       'Pais (slug)': paisSlug,
       Endereco: l.Endereco || '',
@@ -49,7 +50,8 @@ try {
       Instagram: l.Instagram || '',
       Facebook: l.Facebook || '',
       Website: l.Website || '',
-      'Logo (arquivo)': logoFile
+      'Logo (arquivo)': logoFile,
+      Ordem: l.Ordem || ''
     };
   });
 

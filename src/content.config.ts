@@ -39,6 +39,7 @@ export const collections = {
     loader: jsonLoader('lojas.json'),
     schema: z.object({
       Nome: z.string(),
+      Cidade: z.string().optional(),
       Slug: z.string(),
       Pais: z.array(z.string()),
       Endereco: z.string().optional(),
@@ -49,6 +50,7 @@ export const collections = {
       Facebook: z.string().optional(),
       Website: z.string().optional(),
       Logo: z.array(z.object({ url: z.string() })).optional(),
+      Ordem: z.number().optional(),
     }),
   }),
 };

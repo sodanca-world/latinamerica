@@ -15,9 +15,9 @@ const { pais } = Astro.props;
 
 // Buscar lojas do país
 const lojas = await getCollection('lojas');
-const lojasNoPais = lojas.filter((loja) => 
-  loja.data.Pais.includes(pais.data.Slug)
-);
+const lojasNoPais = lojas
+  .filter((loja) => loja.data.Pais.includes(pais.data.Slug))
+  .sort((a, b) => (a.data.Ordem || 99) - (b.data.Ordem || 99));
 
 // Pegar redes sociais da primeira loja para alterar dinamicamente o sidebar de redes sociais
 const primeiraLoja = lojasNoPais[0]?.data;

@@ -61,6 +61,7 @@ try {
     return {
       id: row.Slug,
       Nome: row.Nome,
+      Cidade: row.Cidade || undefined,
       Slug: row.Slug,
       Pais: paisesArray,
       Endereco: row.Endereco || undefined,
@@ -70,7 +71,8 @@ try {
       Instagram: row.Instagram || undefined,
       Facebook: row.Facebook || undefined,
       Website: row.Website || undefined,
-      Logo: logoArray
+      Logo: logoArray,
+      Ordem: row.Ordem ? Number(row.Ordem) : undefined
     };
   });
 
